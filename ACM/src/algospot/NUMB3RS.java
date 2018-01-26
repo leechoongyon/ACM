@@ -1,6 +1,7 @@
 package algospot;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
@@ -56,7 +57,7 @@ n * n : 각 마을에서 서로 연결된 마을
  */
 public class NUMB3RS 
 {
-	public static void main(String[] args) 
+	public static void main(String[] args) throws NumberFormatException, IOException 
 	{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int cNum = Integer.parseInt(br.readLine());
@@ -65,7 +66,7 @@ public class NUMB3RS
 		int spendDate;
 		int prisonNum;
 		int townBoard[][];
-		int getChangeToTheseViliages[];
+		int getChangeToTheseViliages[] = null;
 		int numOfViliages;
 		
 		StringTokenizer st = null;
@@ -106,7 +107,7 @@ public class NUMB3RS
 	}
 	
 	
-	public double[] solve(int nowPos)
+	public static double[] solve(int nowPos)
 	{
 		return null;
 		// 1. 기저사례
