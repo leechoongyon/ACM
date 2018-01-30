@@ -2,6 +2,12 @@ package hackerrank;
 
 import java.util.Scanner;
 
+/**
+ * @author lee
+ * @point
+ * 	1. use memory
+ * 
+ */
 public class ArraysLeftRotation
 {
 	public static void main(String [] args)
@@ -14,11 +20,22 @@ public class ArraysLeftRotation
 		{
 			a[a_i] = in.nextInt();
 		}
-		solve(a, k);
+		int res[] = solve(a, n, k);
+		for (int i = 0 ; i < res.length ; i++)
+			System.out.print(res[i] + " ");
 	}
 
-	public static void solve(int a[], int k)
+	public static int[] solve(int a[], int n, int k)
 	{
-		
+		int res[] = new int[n];
+		int index;
+		for (int i = 0 ; i < n ; i++)
+		{
+			index = i - k;
+			if (index < 0)
+				index = index + n;
+			res[index] = a[i];
+		}
+		return res;
 	}
 }
