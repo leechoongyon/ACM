@@ -28,7 +28,7 @@ public class BalancedBrackets
 	
 	public static boolean isBalanced(String expression)
 	{
-		Stack stack = new Stack();
+		BalancedBracketsStack stack = new BalancedBracketsStack();
 		for (char c : expression.toCharArray())
 		{
 			stack.push(c);
@@ -41,11 +41,11 @@ public class BalancedBrackets
 	}
 } 
 
-class Stack
+class BalancedBracketsStack
 {
 	List<Character> list;
 	
-	public Stack()
+	public BalancedBracketsStack()
 	{
 		list = new ArrayList<Character>();
 	}
