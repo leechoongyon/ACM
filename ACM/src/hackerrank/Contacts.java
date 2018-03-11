@@ -1,6 +1,7 @@
 package hackerrank;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -14,13 +15,9 @@ import java.util.Scanner;
  * 4. find 는 연락처들중 입력된 문자열로 시작하는 것이 몇 개 인지 print
  * 5. name 중복 X
  * 
-8
+4
 add hacb
 add haca
-add hacd
-add hacc
-add hace
-add hacf
 find hac
 find hak
  */
@@ -38,9 +35,25 @@ public class Contacts
             String contact = in.next();
             
             solve(op, contact);
+            
+//            print();
         }
     }
     
+	public static void print()
+	{
+		Iterator<Character> iter = contactStores.keySet().iterator();
+		Character c = iter.next();
+		System.out.print(c + " ");
+		ContactStore contactStore = contactStores.get(c);
+		ContactStore c1 = contactStore.childContactStore.get('a');
+		ContactStore c2 = c1.childContactStore.get('c');
+		ContactStore c3 = c2.childContactStore.get('b');
+		System.out.println(c1.c);
+		System.out.println(c2.c);
+		System.out.println(c3.c);
+	}
+	
     public static void solve(String op, String contact)
     {
     	if ("add".equals(op))
@@ -49,6 +62,12 @@ public class Contacts
     		{
     			ContactStore contactStore = contactStores.get(contact.charAt(0));
     			contactStore.add(contact);
+    		}
+    		else
+    		{
+    			ContactStore contactStore = new ContactStore();
+    			contactStore.add(contact);
+    			contactStores.put(contact.charAt(0), contactStore);
     		}
     	}
     	else if ("find".equals(op))
@@ -88,18 +107,19 @@ class ContactStore
 		else
 		{
 			ContactStore contactStore = new ContactStore();
+			contactStore.add(contact.substring(1));
 			childContactStore.put(contact.charAt(1), contactStore);
 		}
 	}
 	
 	public int find(String contact)
 	{
-		ContactStore store = null;
+		ContactStore store = this;
 		for (int i = 1 ; i < contact.length() ; i++)
 		{
-			if (childContactStore.containsKey(contact.charAt(i)))
+			if (store.childContactStore.containsKey(contact.charAt(i)))
 			{
-				store = childContactStore.get(contact.charAt(i));
+				store = store.childContactStore.get(contact.charAt(i));
 			}
 			else
 				return 0;
