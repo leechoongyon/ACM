@@ -38,7 +38,22 @@ public class Primality
 		 * 이러면 O(n) 임. 들어오는 수는 n 개일테니 최종 시간복잡도는 O(n의 2승)
 		 * B : 병목으로 따지면 for 문이 2번 돈다는거. 			  
 		 * U : 하나라도 자기자신 이외의 값이 나오면 break. 물론 마지막에 답이 나오면 시간복잡도는 그대로
+		 * 		불필요한 작업인 2~n까지 하는게 아니라 n에 루트를 씌움으로써 n의 횟수를 루트 n만큼 줄임.
+		 * 
+		 * 
 		 */
-		return null;
+		
+		if (n == 1)
+			return "Not prime";
+		else
+		{
+			int l = (int) Math.sqrt(n);
+			for (int i = 2 ; i <= l ; i++)
+			{
+				if (n % i == 0)
+					return "Not prime";
+			}
+		}
+		return "Prime";
 	}
 }
