@@ -11,53 +11,44 @@ import java.util.Scanner;
  */
 public class MergeSortCountingInversions
 {
-	private static long solve(int [] arr)
+	public static long mergeSort(int arr[], int start, int end)
 	{
-		int copy[] = arr.clone();
-		return solve(arr, 0, arr.length - 1, copy);
+		if (start == end) return 0;
+		int mid = ( start + end ) / 2;
+		long cnt = 0;
+		cnt += mergeSort(arr, start, mid); 
+		cnt += mergeSort(arr, mid + 1, end);
+		cnt += merge(arr, start, end); 
+		return cnt;
 	}
 
-	private static long solve(int [] arr, int lo, int hi, int [] copy)
+	public static long merge(int arr[], int start, int end)
 	{
-		if (lo >= hi)
-			return 0;
-
-		int mid = lo + ( hi - lo ) / 2;
-
-		long count = 0;
-		count += solve(copy, lo, mid, arr);
-		count += solve(copy, mid + 1, hi, arr);
-		count += merge(arr, lo, mid, hi, copy);
-
-		return count;
-	}
-
-	private static long merge(int [] arr, int lo, int mid, int hi, int [] copy)
-	{
-		long count = 0;
-		int i = lo, j = mid + 1, k = lo;
-		while (i <= mid || j <= hi)
+		int mid = ( start + end ) / 2;
+		int copy[] = new int [end - start + 1];
+		int curr = 0;
+		int left = start;
+		int right = mid + 1;
+		long cnt = 0;
+		while (left <= mid && right <= end)
 		{
-			if (i > mid)
+			if (arr[left] > arr[right])
 			{
-				arr[k++] = copy[j++];
-			}
-			else if (j > hi)
-			{
-				arr[k++] = copy[i++];
-			}
-			else if (copy[i] <= copy[j])
-			{
-				arr[k++] = copy[i++];
+				copy[curr++] = arr[right++];
+				cnt += mid - left + 1;
 			}
 			else
-			{
-				arr[k++] = copy[j++];
-				count += mid + 1 - i;
-			}
+				copy[curr++] = arr[left++];
 		}
+		
+		while (left <= mid)
+			copy[curr++] = arr[left++];
 
-		return count;
+		while (right <= end)
+			copy[curr++] = arr[right++];
+		
+		System.arraycopy(copy, 0, arr, start, end - start + 1);
+		return cnt;
 	}
 
 	public static void main(String [] args)
@@ -72,7 +63,7 @@ public class MergeSortCountingInversions
 			{
 				arr[j] = in.nextInt();
 			}
-			System.out.println(solve(arr));
+			System.out.println(mergeSort(arr, 0, arr.length - 1));
 		}
 	}
 }
