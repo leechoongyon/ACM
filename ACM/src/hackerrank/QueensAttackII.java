@@ -19,15 +19,26 @@ public class QueensAttackII
 		int k = in.nextInt();
 		
 		int board[][] = new int[n][n];
-		int rq = in.nextInt() - 1;
-		int cq = in.nextInt() - 1;
-		
-		int mid = n/2;
-		if (rq > mid)
-			rq = rq - Math.abs(rq-mid) * 2;
-		else if (rq < mid)
-			rq = rq + Math.abs(rq-mid) * 2;
-		
+		int queenRow = in.nextInt() - 1;
+		int queenCol = in.nextInt() - 1;
+
+		int mid = (n-1) / 2;
+		if (queenRow > mid)
+		{
+			queenRow = queenRow - Math.abs(queenRow-mid) * 2;
+			if (queenRow < 0)
+				queenRow = 0;
+			else if (queenRow > n)
+				queenRow = n - 1;
+		}
+		else if (queenRow < mid)
+		{
+			queenRow = queenRow + Math.abs(queenRow-mid) * 2;
+			if (queenRow < 0)
+				queenRow = 0;
+			else if (queenRow > n)
+				queenRow = n - 1;
+		}
 		for (int i = 0 ; i < k ; i++)
 		{
 			int row = in.nextInt() - 1;
@@ -40,21 +51,12 @@ public class QueensAttackII
 			
 			board[row][col] = 1;
 		}
-		int result = solve(board, rq, cq);
+		int result = solve(board, queenRow, queenCol);
 		System.out.println(result);
 	}
 	
 	public static int solve(int board[][], int rq, int cq)
 	{
-		/**
-		 * 1. 여왕의 포지션 파악
-		 * 2. 여왕의 포지션부터 각 케이스별로 공격가능한 위치 count 하기.
-		 * 3. 장애물이 있으면 장애물이 있기전까지만 count
-		 * 
-		 * 5,5 --> 0,5 / 4,2 --> 1,1 / 2,3 --> 3,2 
-		 * 
-		 */
-		
 		int attackCount = 0;
 		int rowMax = board.length - 1;
 		int colMax = board[0].length - 1;
