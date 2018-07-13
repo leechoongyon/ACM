@@ -1,4 +1,4 @@
-package perlProgramming.ch2;
+package perlProgramming.ch02;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

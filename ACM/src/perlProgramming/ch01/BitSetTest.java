@@ -1,4 +1,4 @@
-package perlProgramming.ch1;
+package perlProgramming.ch01;
 
 import java.util.BitSet;
 import java.util.HashSet;

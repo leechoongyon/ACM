@@ -1,4 +1,4 @@
-package perlProgramming.ch2;
+package perlProgramming.ch02;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
