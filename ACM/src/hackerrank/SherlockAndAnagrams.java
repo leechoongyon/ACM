@@ -1,6 +1,9 @@
 package hackerrank;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * @author lee
@@ -14,6 +17,9 @@ import java.util.Scanner;
 ifailuhkqq
 kkkk
 
+1
+cdcd
+
  */
 public class SherlockAndAnagrams
 {
@@ -23,8 +29,10 @@ public class SherlockAndAnagrams
 		int n = in.nextInt();
 		String strArr[] = new String[n];
 		for (int i = 0 ; i < n ; i++)
+		{
 			strArr[i] = in.next();
-		System.out.println(solve(strArr));
+			System.out.println(solve(strArr[i]));
+		}
 	}
 	
 	/**
@@ -42,12 +50,30 @@ public class SherlockAndAnagrams
 	 * 				- for 문을 돌려서 1,2... 개의 알파벳을 집어서 단어를 조립
 	 * 		- 위에 값 조건이 맞을 때, 각각의 단어가 같은지 확인?
 	 * 
-	 * @param strArr
+	 * @param str
 	 * @return
 	 */
-	private static int solve(String strArr[])
+	
+	private static int solve(String str)
 	{
-		
-		return 0;
+		int sum = 0;
+		int accord = 0;
+		for (int i = 0 ; i < str.length() ; i++)
+		{
+			accord = 0;
+			for (int j = i + 1 ; j < str.length() ; j++)
+			{
+				if (str.charAt(i) == str.charAt(j))
+				{
+					sum++;
+					accord++;
+					if (accord > 2 && (accord -1) % 2 == 0)
+						sum = sum + (accord / 2);
+					if (Math.abs(i-j) > 1)
+						sum++;
+				}
+			}
+		}
+		return sum;
 	}
 }
