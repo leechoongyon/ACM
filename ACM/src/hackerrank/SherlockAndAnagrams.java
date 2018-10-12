@@ -18,6 +18,9 @@ ifailuhkqq
 kkkk
 
 1
+ifailuhkqq
+
+1
 cdcd
 
  */
@@ -35,45 +38,39 @@ public class SherlockAndAnagrams
 		}
 	}
 	
-	/**
-	 * * brute force
-	 * 		- 부분집합을 뽑아서 비교.
-	 * 		- 조합을 전부 만들어서 메모리에 저장.
-	 * 		- 하나씩 뺀 다음에, 나머지와 비교한다? N제곱이네.
-	 * 
-	 * 		- 뽑아내는 방법, 뽑아낸 것을 비교하는 방법을 생각해야할 것 같음.		
-	 * 		
-	 * * optimize 
-	 * 		- 재조립된 단어를 더했는데 값이 같아?
-	 * 			- 재조립된 단어를 어떻게 구하는가?
-	 * 				- 조합을 돌려서 단어를 구성?
-	 * 				- for 문을 돌려서 1,2... 개의 알파벳을 집어서 단어를 조립
-	 * 		- 위에 값 조건이 맞을 때, 각각의 단어가 같은지 확인?
-	 * 
-	 * @param str
-	 * @return
-	 */
-	
 	private static int solve(String str)
 	{
+		Set<String> set;
 		int sum = 0;
-		int accord = 0;
-		for (int i = 0 ; i < str.length() ; i++)
+		
+		// 끝까지 체크할 필요가 없기에, str.length
+		int strLen = str.length();
+		for (int i = 1 ; i <= strLen - 1 ; i++)
 		{
-			accord = 0;
-			for (int j = i + 1 ; j < str.length() ; j++)
+			// j 는 단어의 시작부분을 의미
+			for (int j = 0 ; j < strLen - i ; j++)
 			{
-				if (str.charAt(i) == str.charAt(j))
+				// set 을 사용한 이유는 비교를 쉽게 하기 위해
+				set = new HashSet<String>();
+				int sIdx = j;
+				
+				// 초기 String 을 set 에 넣는다.
+				String initTmp = str.substring(sIdx, sIdx + i);
+				char initCh[] = initTmp.toCharArray();
+				Arrays.sort(initCh);
+				set.add(new String(initCh));
+				sIdx++;
+				while (sIdx + i <= strLen)
 				{
-					sum++;
-					accord++;
-					if (accord > 2 && (accord -1) % 2 == 0)
-						sum = sum + (accord / 2);
-					if (Math.abs(i-j) > 1)
+					String tmp = str.substring(sIdx, sIdx + i);
+					char ch[] = tmp.toCharArray();
+					Arrays.sort(ch);
+					if (set.contains(new String(ch)))
 						sum++;
+					sIdx++;
 				}
 			}
 		}
-		return sum;
+		return sum;	
 	}
 }
