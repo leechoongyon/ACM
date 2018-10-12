@@ -55,22 +55,24 @@ public class SherlockAndAnagrams
 				int sIdx = j;
 				
 				// 초기 String 을 set 에 넣는다.
-				String initTmp = str.substring(sIdx, sIdx + i);
-				char initCh[] = initTmp.toCharArray();
-				Arrays.sort(initCh);
-				set.add(new String(initCh));
+				set.add(extractString(str, sIdx, sIdx + i));
 				sIdx++;
 				while (sIdx + i <= strLen)
 				{
-					String tmp = str.substring(sIdx, sIdx + i);
-					char ch[] = tmp.toCharArray();
-					Arrays.sort(ch);
-					if (set.contains(new String(ch)))
+					if (set.contains(extractString(str, sIdx, sIdx + i)))
 						sum++;
 					sIdx++;
 				}
 			}
 		}
 		return sum;	
+	}
+	
+	private static String extractString(String str, int to, int from)
+	{
+		String tmp = str.substring(to, from);
+		char ch[] = tmp.toCharArray();
+		Arrays.sort(ch);
+		return new String(ch);
 	}
 }
