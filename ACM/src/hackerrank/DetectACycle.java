@@ -27,13 +27,13 @@ public class DetectACycle
         }
     */
 
-    boolean hasCycle(Node head) {
+    boolean hasCycle(datastructure.Node head) {
         
         if (head == null)
             return false;
         
         int count = 0;
-        Node current = head;
+        datastructure.Node current = head;
         while (true)
         {
             if (current.next != null)
