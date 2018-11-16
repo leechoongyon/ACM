@@ -9,7 +9,6 @@ public class DFS {
 
 		DFS dfs = new DFS();
 		dfs.init(map);
-		System.out.println(map);
 		DFS(1,map,visit);
 	}
 
