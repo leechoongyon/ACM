@@ -9,6 +9,10 @@ import datastructure.Node;
 3 3
 7 1 6
 5 9 2
+
+3 3
+6 1 7
+2 9 5
   
  * @author lee
  *
@@ -40,7 +44,7 @@ public class Problem2e
 				node2.appendTail(scan.nextInt());
 		}
 		
-		Node result = solve(node1, node2);
+		Node result = solve1(node1, node2);
 		result.print();
 	}
 	
@@ -85,7 +89,7 @@ public class Problem2e
 		return result;
 	}
 	
-	private Node solve1(Node node1, Node node2)
+	private static Node solve1(Node node1, Node node2)
 	{
 		int len1 = 0;
 		int len2 = 0;
