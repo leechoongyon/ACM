@@ -3,14 +3,14 @@ package datastructure;
 public class Node
 {
 	public Node next;
-	public int data;
+	public Object data;
 	
-	public Node(int d)
+	public Node(Object d)
 	{
 		data = d;
 	}
 	
-	public void appendTail(int d)
+	public void appendTail(Object d)
 	{
 		Node end = new Node(d);
 		Node node = this;
@@ -22,7 +22,7 @@ public class Node
 		node.next = end;
 	}
 	
-	public Node deleteNode(Node originNode, int d)
+	public Node deleteNode(Node originNode, Object d)
 	{
 		Node node = originNode;
 		if (node.data == d)
@@ -42,7 +42,7 @@ public class Node
 	public void print()
 	{
 		Node node = this;
-		while (node.data != 0)
+		while (node.data != null)
 		{
 			System.out.print(node.data + " ");
 			if (node.next == null)

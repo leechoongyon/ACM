@@ -1,7 +1,6 @@
 package codingInterview.linkedlist;
 
-import java.util.Iterator;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -30,34 +29,67 @@ public class Problem2a
 			else
 				node.appendTail(scan.nextInt());
 		}
-		Node result = solve(node);
+		Node result = solve1(node);
 		result.print();
 	}
 	
 	private static Node solve(Node node)
 	{
-		/**
-		 * sol1. 전체 탐색 후, 중복되는 것 제거
-		 * 
-		 * - set 에 데이터를 넣어둠. 중복이면 제거.
-		 * - O(n) + O(n)
-		 */
-		
-		Set<Integer> set = new LinkedHashSet<Integer>();
-		while (node != null && node.next != null)
+		Set set = new HashSet();
+		Node result = null;
+		if (node.data != null)
 		{
+			result = new Node(node.data);
 			set.add(node.data);
 			node = node.next;
 		}
 		
-		Iterator<Integer> iter = set.iterator();
-		
+		System.out.println("here");
+		while (node != null)
+		{
+			System.out.println("1111");
+			if ( !set.contains(node.data))
+			{
+				result.appendTail(node.data);
+				set.add(node.data);
+			}
+				
+			node = node.next;
+		}
+		return result;
+	}
+	
+	private static Node solve1(Node node)
+	{
+		Node current = node;
 		Node result = null;
-		if (iter.hasNext())
-			result = new Node(iter.next());
-		while(iter.hasNext())
-			result.appendTail(iter.next());
-
+		Node temp = null;
+		
+		boolean isInclude = false;
+		
+		while (current != null)
+		{
+			temp = result;
+			while (temp != null)
+			{
+				if (current.data == temp.data)
+				{
+					isInclude = true;
+					break;
+				}
+				temp = temp.next;
+			}
+			
+			if ( !isInclude)
+			{
+				if (result == null)
+					result = new Node(current.data);
+				else
+					result.appendTail(current.data);
+			}
+			isInclude = false;
+			current = current.next;
+		}
 		return result;
 	}
 }

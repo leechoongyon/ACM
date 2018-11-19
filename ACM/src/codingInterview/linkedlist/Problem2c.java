@@ -21,8 +21,11 @@ public class Problem2c
 		solve(node);
 	}
 	
-	private static void solve(Node node)
+	private static Node solve(Node node)
 	{
-		
+		Node result = node;
+		result.data = node.next.data;
+		result.next = node.next.next;
+		return result;
 	}
 }
