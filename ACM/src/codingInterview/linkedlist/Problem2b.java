@@ -22,7 +22,7 @@ public class Problem2b
 		System.out.println(solve(node, k));
 	}
 	
-	private static int solve(Node orginNode, int k)
+	private static Object solve(Node orginNode, int k)
 	{
 		/**
 		 * runner 기법 사용
