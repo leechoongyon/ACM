@@ -91,8 +91,8 @@ public class Problem2e
 	
 	private static Node solve1(Node node1, Node node2)
 	{
-		int len1 = 0;
-		int len2 = 0;
+		int len1 = -1;
+		int len2 = -1;
 		
 		int sum = 0;
 		
@@ -113,14 +113,14 @@ public class Problem2e
 		
 		while (node1 != null)
 		{
-			sum += (Integer) node1.data * (10 * len1);
+			sum += (Integer) node1.data * (Math.pow(10,len1));
 			len1--;
 			node1 = node1.next;
 		}
 		
 		while (node2 != null)
 		{
-			sum += (Integer) node2.data * (10 * len2);
+			sum += (Integer) node2.data * (Math.pow(10, len2));
 			len2--;
 			node2 = node2.next;
 		}
