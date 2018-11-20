@@ -51,4 +51,10 @@ public class Node
 		}
 		System.out.println();
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Node [next=" + next + ", data=" + data + "]";
+	}
 }
