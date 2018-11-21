@@ -43,4 +43,31 @@ public class Problem2h
 		}
 		return node;
 	}
+	
+	private static Node solve1(Node node)
+	{
+		Node slow = node;
+		Node fast = node;
+		
+		while (fast != null && fast.next != null)
+		{
+			slow = slow.next;
+			fast = fast.next.next;
+			if (slow == fast)
+				break;
+		}
+
+		// 만나는 지점이 없으면 return null
+		if (fast == null || fast.next == null)
+			return null;
+		
+		slow = node;
+		
+		while (slow != fast)
+		{
+			slow = slow.next;
+			fast = fast.next;
+		}
+		return fast;
+	}
 }
