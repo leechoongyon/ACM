@@ -6,13 +6,13 @@ public class FixedMultiStack
 {
 	private int numOfStacks = 3;
 	private Object values[];
-	private int sizes[];
+	private int index[];
 	private int capacity;
 	
 	public FixedMultiStack(int size)
 	{
 		values = new Object[numOfStacks * size];
-		sizes = new int[numOfStacks];
+		index = new int[numOfStacks];
 		capacity = size;
 	}
 	
@@ -21,16 +21,16 @@ public class FixedMultiStack
 		if (isFull(stackNum))
 			throw new RuntimeException("Stack[" + stackNum + "] is full.");
 		values[indexOfTop(stackNum)] = data;
-		sizes[stackNum]++;
+		index[stackNum]++;
 	}
-	
+	 
 	public Object pop(int stackNum)
 	{
 		if (isEmpty(stackNum))
 			throw new EmptyStackException();
 		Object item = values[indexOfTop(stackNum)];
 		values[indexOfTop(stackNum)] = null;
-		sizes[stackNum]--;
+		index[stackNum]--;
 		return item;
 	}
 	
@@ -43,18 +43,18 @@ public class FixedMultiStack
 	
 	private boolean isEmpty(int stackNum)
 	{
-		return sizes[stackNum] == 0;
+		return index[stackNum] == 0;
 	}
 	
 	private boolean isFull(int stackNum)
 	{
-		return sizes[stackNum] >= capacity;
+		return index[stackNum] >= capacity;
 	}
 	
 	private int indexOfTop(int stackNum)
 	{
 		int offset = stackNum * capacity;
-		return sizes[stackNum] + offset;
+		return index[stackNum] + offset;
 	}
 	
 	public Object[] getValues()
