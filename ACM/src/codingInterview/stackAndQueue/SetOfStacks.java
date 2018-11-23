@@ -6,25 +6,8 @@ import java.util.List;
 
 public class SetOfStacks
 {
-	public static class StackNode
-	{
-		private Object data;
-		private StackNode next;
-		public StackNode(Object item)
-		{
-			this.data = item;
-		}
-		@Override
-		public String toString()
-		{
-			return "StackNode [data=" + data + ", next=" + next + "]";
-		}
-	}
-	
-	private StackNode top;
-	private List<StackNode> storage;
+	private List<Stack> stacks;
 	private int capacity = 0;
-	private int topSize = 0;
 
 	public SetOfStacks (int defaultSize)
 	{
@@ -33,97 +16,82 @@ public class SetOfStacks
 	
 	public void push(Object item)
 	{
-		StackNode t = new StackNode(item);
-		
-		if (top == null)
+		Stack stack = getLastStack();
+		if (stack == null)
 		{
-			top = t;
-			topSize++;
+			Stack newStack = new Stack();
+			newStack.push(item);
+			if (stacks == null)
+				stacks = new ArrayList<Stack>();
+			stacks.add(newStack);
 		}
 		else
 		{
-			if (isFull())
+			if (stack.isFull(capacity))
 			{
-				expand(t);
-				topSize = 1;
+				Stack newStack = new Stack();
+				newStack.push(item);
+				stacks.add(newStack);
 			}
 			else
 			{
-				t.next = top;
-				top = t;
-				topSize++;
+				stack.push(item);
 			}
 		}
-	}
+	}		
 	
 	public Object pop()
 	{
 		/**
-		 * 1. top == null 일 경우
-		 * 		- storage 에 있는 top 을 가져옴.
-		 * 		- storage 에도 없을 경우 EmptyStackException
-		 * 2. top 에 데이터가 있을 경우
-		 * 		- topSize--
-		 * 		- return item
+		 * 	1. lastStack 에 이미 데이터가 있는 경우
+		 * 		- 있는 데이터를 pop 하면 됨.
+		 * 	2. lastStack 이 null 
 		 */
-		
+		Stack lastStack = getLastStack();
 		Object item = null;
-		
-		if (top == null)
-		{
-			if (storage != null && storage.size() > 0)
-			{
-				top = storage.remove(storage.size() - 1);
-				topSize = capacity;
-				item = top.data;
-				top = top.next;
-			}
-			else
-			{
-				throw new EmptyStackException();
-			}
-		}
+		if (lastStack == null)
+			throw new EmptyStackException();
 		else
 		{
-			item = top.data;
-			top = top.next;
+			item = lastStack.pop();
+			if (lastStack.getSize() == 0)
+			{
+				removeLastStack();
+			}
 		}
 		return item;
 	}
 	
-	public StackNode getTop()
+	public Stack getLastStack()
 	{
-		return top;
+		if (stacks == null || stacks.size() == 0)
+			return null;
+		return stacks.get(stacks.size() - 1);
 	}
 	
-	public List<StackNode> getStorage()
+	public Object popAt(int stackNum)
 	{
-		return storage;
+		/**
+		 * 	1. 특정 Stack 이 null 인 경우
+		 * 	2. 특정 Stack 에 데이터가 있는 경우
+		 * 		- pop 시킴.
+		 * 		- [TEST] 중간 Stack pop 시킨 뒤, 중간 stack 이 나올 때까지 pop 테스트
+		 */
+
+		Stack lastStack = getLastStack();
+		if (lastStack == null)
+			throw new EmptyStackException();
+		Object item = lastStack.pop();
+		return item;
 	}
 	
-	private boolean isFull()
+	public List<Stack> getStacks()
 	{
-		return topSize == capacity;
+		return stacks;
 	}
 	
-	private void expand(StackNode t)
+	private void removeLastStack()
 	{
-		if (storage == null)
-			storage = new ArrayList<StackNode>();
-		storage.add(top);
-		top = t;
-	}
-	
-	@Override
-	public String toString()
-	{
-		return "SetOfStacks [top=" + top
-				+ ", storage="
-				+ storage
-				+ ", capacity="
-				+ capacity
-				+ ", topSize="
-				+ topSize
-				+ "]";
+		stacks.remove(stacks.size() - 1);
 	}
 }
