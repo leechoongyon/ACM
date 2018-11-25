@@ -1,14 +1,12 @@
 package codingInterview.stackAndQueue;
 
-import java.util.EmptyStackException;
-
-public class Stack
+public class Stack<T>
 {
-	public static class Node
+	public static class Node<T>
 	{
-		private Object data;
+		private T data;
 		private Node next;
-		public Node(Object item)
+		public Node(T item)
 		{
 			this.data = item;
 		}
@@ -22,7 +20,7 @@ public class Stack
 	private Node top;
 	private int size;
 	
-	public void push(Object item)
+	public void push(T item)
 	{
 		Node newNode = new Node(item);
 		if (top == null)
@@ -38,16 +36,53 @@ public class Stack
 		
 	}
 	
-	public Object pop()
+	public T pop()
 	{
 		if (top == null)
 			return null;
-		Object item = top.data;
+		T item = (T) top.data;
 		top = top.next;
 		size--;
 		return item;
 	}
 
+	public T peek()
+	{
+		if (top == null)
+			return null;
+		T item = (T) top.data;
+		return item;
+	}
+	
+	public Stack copy()
+	{
+		Stack reverse = this.reverse();
+		Stack copy = new Stack();
+		
+		while (reverse.top !=  null)
+		{
+			copy.push(reverse.pop());
+		}
+		return copy;
+	}
+	
+	public Stack reverse()
+	{
+		Node temp = top;
+		Stack reverseStack = new Stack();
+		while (temp != null)
+		{
+			reverseStack.push(temp.data);
+			temp = temp.next;
+		}
+		return reverseStack;
+	}
+	
+	public boolean isEmpty()
+	{
+		return size == 0;
+	}
+	
 	public int getSize()
 	{
 		return size;
@@ -71,8 +106,6 @@ public class Stack
 		s.push(2);
 		s.push(3);
 		
-		System.out.println(s.pop());
-		System.out.println(s.pop());
-		System.out.println(s.pop());
+		System.out.println(s.copy());
 	}
 }

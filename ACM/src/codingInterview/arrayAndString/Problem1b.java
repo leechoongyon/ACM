@@ -82,5 +82,6 @@ public class Problem1b
 			}
 			map.put(c, map.get(c) - 1);
 		}
+		System.out.println("permutation");
 	}
 }
