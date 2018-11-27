@@ -16,6 +16,47 @@ public class MinHeap
 		heap[0] = Integer.MIN_VALUE;
 	}
 
+	public void insert(int element)
+	{
+		heap[++size] = element;
+		int current = size;
+
+		while (heap[current] < heap[parent(current)])
+		{
+			swap(current, parent(current));
+			current = parent(current);
+		}
+	}
+
+	public void print()
+	{
+		for (int i = 1; i <= size / 2; i++)
+		{
+			System.out.print(" PARENT : " + heap[i]
+					+ " LEFT CHILD : "
+					+ heap[2 * i]
+					+ " RIGHT CHILD :"
+					+ heap[2 * i + 1]);
+			System.out.println();
+		}
+	}
+
+	public void minHeap()
+	{
+		for (int pos = ( size / 2 ); pos >= 1; pos--)
+		{
+			minHeapify(pos);
+		}
+	}
+
+	public int remove()
+	{
+		int popped = heap[FRONT];
+		heap[FRONT] = heap[size--];
+		minHeapify(FRONT);
+		return popped;
+	}
+	
 	private int parent(int pos)
 	{
 		return pos / 2;
@@ -63,47 +104,6 @@ public class MinHeap
 				}
 			}
 		}
-	}
-
-	public void insert(int element)
-	{
-		heap[++size] = element;
-		int current = size;
-
-		while (heap[current] < heap[parent(current)])
-		{
-			swap(current, parent(current));
-			current = parent(current);
-		}
-	}
-
-	public void print()
-	{
-		for (int i = 1; i <= size / 2; i++)
-		{
-			System.out.print(" PARENT : " + heap[i]
-					+ " LEFT CHILD : "
-					+ heap[2 * i]
-					+ " RIGHT CHILD :"
-					+ heap[2 * i + 1]);
-			System.out.println();
-		}
-	}
-
-	public void minHeap()
-	{
-		for (int pos = ( size / 2 ); pos >= 1; pos--)
-		{
-			minHeapify(pos);
-		}
-	}
-
-	public int remove()
-	{
-		int popped = heap[FRONT];
-		heap[FRONT] = heap[size--];
-		minHeapify(FRONT);
-		return popped;
 	}
 
 	public static void main(String... arg)
