@@ -2,7 +2,7 @@ package datastructure;
 
 public class MinHeap
 {
-	private int [] Heap;
+	private int [] heap;
 	private int size;
 	private int maxsize;
 
@@ -12,8 +12,8 @@ public class MinHeap
 	{
 		this.maxsize = maxsize;
 		this.size = 0;
-		Heap = new int [this.maxsize + 1];
-		Heap[0] = Integer.MIN_VALUE;
+		heap = new int [this.maxsize + 1];
+		heap[0] = Integer.MIN_VALUE;
 	}
 
 	private int parent(int pos)
@@ -40,18 +40,18 @@ public class MinHeap
 	private void swap(int fpos, int spos)
 	{
 		int tmp;
-		tmp = Heap[fpos];
-		Heap[fpos] = Heap[spos];
-		Heap[spos] = tmp;
+		tmp = heap[fpos];
+		heap[fpos] = heap[spos];
+		heap[spos] = tmp;
 	}
 
 	private void minHeapify(int pos)
 	{
 		if (!isLeaf(pos))
 		{
-			if (Heap[pos] > Heap[leftChild(pos)] || Heap[pos] > Heap[rightChild(pos)])
+			if (heap[pos] > heap[leftChild(pos)] || heap[pos] > heap[rightChild(pos)])
 			{
-				if (Heap[leftChild(pos)] < Heap[rightChild(pos)])
+				if (heap[leftChild(pos)] < heap[rightChild(pos)])
 				{
 					swap(pos, leftChild(pos));
 					minHeapify(leftChild(pos));
@@ -67,10 +67,10 @@ public class MinHeap
 
 	public void insert(int element)
 	{
-		Heap[++size] = element;
+		heap[++size] = element;
 		int current = size;
 
-		while (Heap[current] < Heap[parent(current)])
+		while (heap[current] < heap[parent(current)])
 		{
 			swap(current, parent(current));
 			current = parent(current);
@@ -81,11 +81,11 @@ public class MinHeap
 	{
 		for (int i = 1; i <= size / 2; i++)
 		{
-			System.out.print(" PARENT : " + Heap[i]
+			System.out.print(" PARENT : " + heap[i]
 					+ " LEFT CHILD : "
-					+ Heap[2 * i]
+					+ heap[2 * i]
 					+ " RIGHT CHILD :"
-					+ Heap[2 * i + 1]);
+					+ heap[2 * i + 1]);
 			System.out.println();
 		}
 	}
@@ -100,8 +100,8 @@ public class MinHeap
 
 	public int remove()
 	{
-		int popped = Heap[FRONT];
-		Heap[FRONT] = Heap[size--];
+		int popped = heap[FRONT];
+		heap[FRONT] = heap[size--];
 		minHeapify(FRONT);
 		return popped;
 	}
