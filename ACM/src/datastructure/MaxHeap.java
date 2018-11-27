@@ -17,6 +17,42 @@ public class MaxHeap
 		Heap[0] = Integer.MAX_VALUE;
 	}
 
+	// Inserts a new element to max heap
+		public void insert(int element)
+		{
+			Heap[++size] = element;
+
+			// Traverse up and fix violated property
+			int current = size;
+			while (Heap[current] > Heap[parent(current)])
+			{
+				swap(current, parent(current));
+				current = parent(current);
+			}
+		}
+
+		public void print()
+		{
+			for (int i = 1; i <= size / 2; i++)
+			{
+				System.out.print(" PARENT : " + Heap[i]
+						+ " LEFT CHILD : "
+						+ Heap[2 * i]
+						+ " RIGHT CHILD :"
+						+ Heap[2 * i + 1]);
+				System.out.println();
+			}
+		}
+
+		// Remove an element from max heap
+		public int extractMax()
+		{
+			int popped = Heap[1];
+			Heap[1] = Heap[size--];
+			maxHeapify(1);
+			return popped;
+		}
+	
 	// Returns position of parent
 	private int parent(int pos)
 	{
@@ -73,42 +109,6 @@ public class MaxHeap
 				maxHeapify(rightChild(pos));
 			}
 		}
-	}
-
-	// Inserts a new element to max heap
-	public void insert(int element)
-	{
-		Heap[++size] = element;
-
-		// Traverse up and fix violated property
-		int current = size;
-		while (Heap[current] > Heap[parent(current)])
-		{
-			swap(current, parent(current));
-			current = parent(current);
-		}
-	}
-
-	public void print()
-	{
-		for (int i = 1; i <= size / 2; i++)
-		{
-			System.out.print(" PARENT : " + Heap[i]
-					+ " LEFT CHILD : "
-					+ Heap[2 * i]
-					+ " RIGHT CHILD :"
-					+ Heap[2 * i + 1]);
-			System.out.println();
-		}
-	}
-
-	// Remove an element from max heap
-	public int extractMax()
-	{
-		int popped = Heap[1];
-		Heap[1] = Heap[size--];
-		maxHeapify(1);
-		return popped;
 	}
 
 	public static void main(String [] arg)
