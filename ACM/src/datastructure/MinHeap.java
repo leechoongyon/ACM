@@ -1,128 +1,144 @@
 package datastructure;
 
+import java.util.Arrays;
+
 public class MinHeap
 {
-	private int [] heap;
+	private int heap[] = null;
 	private int size;
-	private int maxsize;
-
-	private static final int FRONT = 1;
-
-	public MinHeap(int maxsize)
+	private int maxSize;
+	private final int ROOT = 1;
+	
+	public MinHeap(int maxSize)
 	{
-		this.maxsize = maxsize;
-		this.size = 0;
-		heap = new int [this.maxsize + 1];
-		heap[0] = Integer.MIN_VALUE;
+		this.maxSize = maxSize;
+		size = 0;
+		// maxSize + 1 인 이유는 parent, child 계산을 쉽게 하기 위해, 0번째 index 는 비워둔채 사용.
+		heap = new int[maxSize + 1];
+		heap[0] = -Integer.MAX_VALUE;
 	}
 
+	/**
+	 * 	1. 맨 마지막에 집어넣는다.
+	 * 	2. 부모노드와 현재 노드를 비교.
+	 * 	3. 현재 노드가 작으면 swap
+	 * 	4. 2,3 번을 반복
+	 */
 	public void insert(int element)
 	{
 		heap[++size] = element;
 		int current = size;
-
+		
+		// parent 의 끝은 결국 0이며, heap[1] > heap[0] 이기에 heap[0] < heap[0] 은 수행 안된다.
 		while (heap[current] < heap[parent(current)])
 		{
 			swap(current, parent(current));
 			current = parent(current);
 		}
 	}
-
-	public void print()
-	{
-		for (int i = 1; i <= size / 2; i++)
-		{
-			System.out.print(" PARENT : " + heap[i]
-					+ " LEFT CHILD : "
-					+ heap[2 * i]
-					+ " RIGHT CHILD :"
-					+ heap[2 * i + 1]);
-			System.out.println();
-		}
-	}
-
-	public void minHeap()
-	{
-		for (int pos = ( size / 2 ); pos >= 1; pos--)
-		{
-			minHeapify(pos);
-		}
-	}
-
+	
+	/**
+	 *
+	 * 	1. ROOT 에 있는 값을 가져온다.
+	 * 	2. 맨 마지막에 있는 값을 ROOT 로 가져온다.
+	 * 		- 맨 마지막에 있는 값은 0으로 변경
+	 * 		- size--
+	 * 	3. ROOT 부터 왼쪽, 오른쪽 자식 노드를 비교하면서 제 자리를 찾아가도록 한다.
+	 * 		- 최종적으로 ROOT 는 가장 작은 값이 된다. 
+	 */
 	public int remove()
 	{
-		int popped = heap[FRONT];
-		heap[FRONT] = heap[size--];
-		minHeapify(FRONT);
-		return popped;
-	}
-	
-	private int parent(int pos)
-	{
-		return pos / 2;
-	}
-
-	private int leftChild(int pos)
-	{
-		return ( 2 * pos );
-	}
-
-	private int rightChild(int pos)
-	{
-		return ( 2 * pos ) + 1;
-	}
-
-	private boolean isLeaf(int pos)
-	{
-		if (pos >= ( size / 2 ) && pos <= size) { return true; }
-		return false;
-	}
-
-	private void swap(int fpos, int spos)
-	{
-		int tmp;
-		tmp = heap[fpos];
-		heap[fpos] = heap[spos];
-		heap[spos] = tmp;
-	}
-
-	private void minHeapify(int pos)
-	{
-		if (!isLeaf(pos))
+		int min = heap[ROOT];
+		heap[ROOT] = heap[size];
+		heap[size] = 0;
+		size--;
+		
+		int current = ROOT;
+		
+		while ( !isLeaf(current))
 		{
-			if (heap[pos] > heap[leftChild(pos)] || heap[pos] > heap[rightChild(pos)])
+			if (heap[current] > heap[leftChild(current)] || 
+				heap[current] > heap[rightChild(current)])
 			{
-				if (heap[leftChild(pos)] < heap[rightChild(pos)])
+				if (heap[leftChild(current)] < heap[rightChild(current)])
 				{
-					swap(pos, leftChild(pos));
-					minHeapify(leftChild(pos));
+					swap(current, leftChild(current));
+					current = leftChild(current);
 				}
 				else
 				{
-					swap(pos, rightChild(pos));
-					minHeapify(rightChild(pos));
+					swap(current, rightChild(current));
+					current = rightChild(current);
 				}
 			}
+			else
+				break;
 		}
+		
+		return min;
+	}
+	
+	/**
+	 *	@desc 자식노드가 없는가? 
+	 */
+	private boolean isLeaf(int current)
+	{
+		if (rightChild(current) > size)
+			return true;
+		return false;
+	}
+	
+	private void swap(int a, int b)
+	{
+		int temp = heap[a];
+		heap[a] = heap[b];
+		heap[b] = temp;
+	}
+	
+	private int parent(int current)
+	{
+		return current / 2;
+	}
+	
+	private int leftChild(int current)
+	{
+		return (current * 2);
+	}
+	
+	private int rightChild(int current)
+	{
+		return (current * 2) + 1;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "MinHeap2 [heap=" + Arrays.toString(heap) + ", size=" + size + ", maxSize=" + maxSize + "]";
 	}
 
-	public static void main(String... arg)
+	public static void main(String [] args)
 	{
-		System.out.println("The Min Heap is ");
-		MinHeap minHeap = new MinHeap(15);
-		minHeap.insert(5);
-		minHeap.insert(3);
-		minHeap.insert(17);
-		minHeap.insert(10);
-		minHeap.insert(84);
-		minHeap.insert(19);
-		minHeap.insert(6);
-		minHeap.insert(22);
-		minHeap.insert(9);
-		minHeap.minHeap();
-
-		minHeap.print();
-		System.out.println("The Min val is " + minHeap.remove());
-		System.out.println("The Min val is " + minHeap.remove());
+		MinHeap heap = new MinHeap(15);
+		heap.insert(6);
+		heap.insert(3);
+		heap.insert(4);
+		heap.insert(2);
+		heap.insert(2);
+		heap.insert(2);
+		heap.insert(2);
+		heap.insert(2);
+		heap.insert(1);
+		System.out.println(heap);
+		System.out.println(heap.remove());
+		System.out.println(heap);
+		System.out.println(heap.remove());
+		System.out.println(heap);
+		System.out.println(heap.remove());
+		System.out.println(heap);
+		System.out.println(heap.remove());
+		System.out.println(heap);
+		System.out.println(heap.remove());
+		System.out.println(heap);
+		System.out.println(heap.remove());
 	}
 }
