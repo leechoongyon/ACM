@@ -28,11 +28,16 @@ public class Problem2f
 			else
 				node.appendTail(scan.next());
 		}
-		boolean result = solve1(node);
+		boolean result = solve(node);
 		System.out.println(result);
 	}
 	
-	private static boolean solve1(Node node)
+	/**
+	 * 
+	 * 	1. 가운데를 기점으로 a1, a2 로 나눔.
+	 * 	2. a2 를 거꾸로 뒤집은다음에 a1 과 비교
+	 */
+	private static boolean solve(Node node)
 	{
 		Node head = node;
 		Node temp = node;
@@ -71,7 +76,7 @@ public class Problem2f
 		return true;
 	}
 
-	private static boolean solve2(Node node)
+	private static boolean solve1(Node node)
 	{
 		System.out.println("node : " + node);
 		Stack stack = new Stack(); 
@@ -101,8 +106,6 @@ public class Problem2f
 				midNode = midNode.next;
 				mid--;
 			}
-			
-			System.out.println("stack : " + stack);
 			
 			midNode = midNode.next;
 			

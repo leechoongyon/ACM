@@ -1,6 +1,7 @@
 package codingInterview.linkedlist;
 
-import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -33,62 +34,68 @@ public class Problem2a
 		result.print();
 	}
 	
+	/**
+	 * 	1. node 를 순회하며, set 에 집어넣음.
+	 * 	2. set 에 있는 것을 순회하며 노드를 만들어서 반환 
+	 */
 	private static Node solve(Node node)
 	{
-		Set set = new HashSet();
+		Set set = new LinkedHashSet();
 		Node result = null;
-		if (node.data != null)
+		while (node != null)
 		{
-			result = new Node(node.data);
 			set.add(node.data);
 			node = node.next;
 		}
 		
-		System.out.println("here");
-		while (node != null)
+		Iterator iter = set.iterator();
+		while (iter.hasNext())
 		{
-			System.out.println("1111");
-			if ( !set.contains(node.data))
-			{
-				result.appendTail(node.data);
-				set.add(node.data);
-			}
-				
-			node = node.next;
+			int n = (Integer) iter.next();
+			if (result == null)
+				result = new Node(n);
+			else
+				result.appendTail(n);
 		}
 		return result;
 	}
 	
+	/**
+	 *
+	 * 	버퍼 없이 풀기.
+	 * 	1. node 를 순회하며, result 에 하나씩 넣기.
+	 * 	2. result 에 넣기 전 해당 값이 result 에 존재하는지 확인.
+	 * 	3. 존재하면 넣지 않고, 존재하지 않는다면 넣는다.
+	 */
 	private static Node solve1(Node node)
 	{
-		Node current = node;
 		Node result = null;
-		Node temp = null;
+		Node temp = null; 
+		boolean isDuplicate = false; 
 		
-		boolean isInclude = false;
+		if (node != null)
+		{
+			result = new Node(node.data);
+			node = node.next;
+		}
 		
-		while (current != null)
+		while (node != null)
 		{
 			temp = result;
+			Object item = node.data;
 			while (temp != null)
 			{
-				if (current.data == temp.data)
+				if (item == temp.data)
 				{
-					isInclude = true;
+					isDuplicate = true;
 					break;
 				}
 				temp = temp.next;
 			}
-			
-			if ( !isInclude)
-			{
-				if (result == null)
-					result = new Node(current.data);
-				else
-					result.appendTail(current.data);
-			}
-			isInclude = false;
-			current = current.next;
+			if ( !isDuplicate)
+				result.appendTail(item);
+			isDuplicate = false;
+			node = node.next;
 		}
 		return result;
 	}

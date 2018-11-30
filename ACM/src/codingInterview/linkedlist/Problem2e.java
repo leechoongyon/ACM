@@ -51,8 +51,9 @@ public class Problem2e
 	public static Node solve(Node node1, Node node2)
 	{
 		/**
-		 * 간단하게 풀면 node1 + node2 = node3 
-		 * O(n)
+		 * 	1. node1 을 sum 에 더함.
+		 * 	2. node2 를 sum 에 더함.
+		 * 	3. sum 을 node 로 변환하여 반환 
 		 */
 		int w1 = 1;
 		int w2 = 1;
