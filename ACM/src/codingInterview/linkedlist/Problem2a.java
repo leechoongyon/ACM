@@ -63,41 +63,30 @@ public class Problem2a
 	/**
 	 *
 	 * 	버퍼 없이 풀기.
-	 * 	1. node 를 순회하며, result 에 하나씩 넣기.
-	 * 	2. result 에 넣기 전 해당 값이 result 에 존재하는지 확인.
-	 * 	3. 존재하면 넣지 않고, 존재하지 않는다면 넣는다.
+	 * 	1. current 순회
+	 * 	2. runner 기법 사용
+	 * 	3. current 순회하면서, runner 를 이용하여 다음 노드 값을 확인해서 같으면
+	 * 	   현재 노드는 다음다음노드를 가리키도록.
+	 * 	4. 만약 while (runner != null) 로 해버리면, runner.next.next 를 했을 때, runner.next = null 이면, 널포인터 발생
+	 * 
 	 */
 	private static Node solve1(Node node)
 	{
-		Node result = null;
-		Node temp = null; 
-		boolean isDuplicate = false; 
+		Node current = node;
 		
-		if (node != null)
+		while (current != null)
 		{
-			result = new Node(node.data);
-			node = node.next;
-		}
-		
-		while (node != null)
-		{
-			temp = result;
-			Object item = node.data;
-			while (temp != null)
+			Node runner = current;
+			while (runner.next != null)
 			{
-				if (item == temp.data)
-				{
-					isDuplicate = true;
-					break;
-				}
-				temp = temp.next;
+				if (runner.next.data == current.data)
+					runner.next = runner.next.next;
+				else
+					runner = runner.next;
 			}
-			if ( !isDuplicate)
-				result.appendTail(item);
-			isDuplicate = false;
-			node = node.next;
+			current = current.next;
 		}
-		return result;
+		return node;
 	}
 }
 
