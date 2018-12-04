@@ -19,6 +19,11 @@ public class Question4b
 		Tree left;
 		Tree right;
 		
+		public Tree()
+		{
+			
+		}
+		
 		public Tree(int item)
 		{
 			this.item = item;
@@ -26,40 +31,7 @@ public class Question4b
 		
 		public void addChild(Tree tree, int item)
 		{
-			if (tree == null)
-			{
-				tree = new Tree(item);
-				return ;
-			}
 			
-			if (tree.item >= item)
-			{
-				if (tree.left == null)
-				{
-					Tree leftTree = new Tree(item);
-					tree.left = leftTree;
-					return ;
-				}
-				else
-				{
-					addChild(tree.left, item);
-					return ;
-				}
-			}
-			else if (tree.item < item)
-			{
-				if (tree.right == null)
-				{
-					Tree rightTree = new Tree(item);
-					tree.right = rightTree;
-					return ;
-				}
-				else
-				{
-					addChild(tree.right, item);
-					return ;
-				}
-			}
 		}
 
 		@Override
@@ -73,17 +45,24 @@ public class Question4b
 	
 	public static void main(String [] args)
 	{
-		int arr[] = new int[] {1, 2, 3, 5, 7, 9, 11};
-		solve(arr);
+		int arr[] = new int[] {1,2,3,4,5,6,7};
+		System.out.println(solve(arr));
 	}
 	
-	public static void solve(int arr[])
+	
+	public static Tree solve(int arr[])
 	{
-		root = new Tree(1);
-		for (int i = 1 ; i < arr.length ; i++)
-		{
-			root.addChild(root, arr[i]);
-		}
-		System.out.println(root);
+		return solve(arr, 0, arr.length - 1);
+	}
+	
+	public static Tree solve(int arr[], int start, int end)
+	{
+		if (start > end)
+			return null;
+		int mid = (start + end) / 2;
+		Tree tree = new Tree(arr[mid]);
+		tree.left = solve(arr, start, mid - 1);
+		tree.right = solve(arr, mid + 1, end);
+		return tree;
 	}
 }
