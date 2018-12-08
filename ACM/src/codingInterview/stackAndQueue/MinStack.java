@@ -12,7 +12,7 @@ public class MinStack
 {
 	/** 
 	 * StackNode 를 내부 클래스로 선언한 이유는 MinStack 의 자료 구조로 사용하기 위함.
-	 * StackNode 에 next 가 있는 이유는 다음 변수를 가리키기 위함.ㄴ
+	 * StackNode 에 next 가 있는 이유는 다음 변수를 가리키기 위함.
 	 * */
 	public static class Node<T>
 	{
