@@ -9,13 +9,14 @@ public class FixedMultiStack
 	private int index[];
 	private int capacity;
 	
+	/** 각각의 스택의 크기와 인덱스 크기 결정 */
 	public FixedMultiStack(int size)
 	{
 		values = new Object[numOfStacks * size];
 		index = new int[numOfStacks];
 		capacity = size;
 	}
-	
+	/** 스택의 넘버를 받아, 해당 스택에 data 를 집어넣는다. */
 	public void push(int stackNum, Object data)
 	{
 		if (isFull(stackNum))
@@ -24,6 +25,7 @@ public class FixedMultiStack
 		index[stackNum]++;
 	}
 	 
+	/** 스택의 넘버를 받아 해당 스택의 top 을 pop 한다. */
 	public Object pop(int stackNum)
 	{
 		if (isEmpty(stackNum))

@@ -3,8 +3,6 @@ package codingInterview.stackAndQueue;
 import java.util.EmptyStackException;
 
 /**
- * @author lee
- *
  *
  *	min 값도 마찬가지로 stack 을 쓰는 이유는
  *	int 단일 값으로 써버리면, pop 을 했을 때, 계산하는 것이 오래 걸림.
@@ -12,12 +10,16 @@ import java.util.EmptyStackException;
  */
 public class MinStack
 {
-	public static class StackNode<T>
+	/** 
+	 * StackNode 를 내부 클래스로 선언한 이유는 MinStack 의 자료 구조로 사용하기 위함.
+	 * StackNode 에 next 가 있는 이유는 다음 변수를 가리키기 위함.ㄴ
+	 * */
+	public static class Node<T>
 	{
 		private T data;
-		private StackNode next;
+		private Node<T> next;
 
-		public StackNode(T data)
+		public Node(T data)
 		{
 			this.data = data;
 		}
@@ -29,13 +31,13 @@ public class MinStack
 		}
 	}
 	
-	private StackNode<Integer> top;
-	private StackNode<Integer> min;
+	private Node<Integer> top;
+	private Node<Integer> min;
 	
 	public void push(int item)
 	{
 		// top 처리 (top 이 있는데 min 이 없을 순 없음.)
-		StackNode<Integer> s = new StackNode(item);
+		Node<Integer> s = new Node<Integer>(item);
 		if (top == null)
 		{
 			top = s;
@@ -45,15 +47,24 @@ public class MinStack
 		s.next = top;
 		top = s;
 		
-		// min 처리
+		/** 
+		 * min 처리 
+		 * temp Node 를 별도로 만드는 이유는 s 가 이미 top 에 들어가있어, 
+		 * top 에서 해당 s를 변경하면 min 에도 영향이 감.ㄴ
+		 * */
 		if (min.data > s.data)
 		{
-			StackNode<Integer> temp = new StackNode(item);
+			Node<Integer> temp = new Node<Integer>(item);
 			temp.next = min;
 			min = temp;
 		}
 	}
 	
+	/**
+	 *
+	 * 	top 에서 pop
+	 * 	빠지는 변수가 minNode 에도 존재한다면, 해당 값을 pop
+	 */
 	public int pop()
 	{
 		// top 처리
