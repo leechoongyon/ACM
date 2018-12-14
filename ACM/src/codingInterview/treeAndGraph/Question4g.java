@@ -105,18 +105,50 @@ public class Question4g
 		return graph;
 	}
 	
+	public static String[] extractOrderedProjects(Graph graph)
+	{
+		List<Node> list = null;
+		String ordered[] = new String[list.size()];
+		int offset = 0;
+		
+		while (true)
+		{
+			list = graph.getNodes();
+			for (int i = 0 ; i < list.size() ; i++)
+			{
+				/** 1. dependency 가 없는 node 부터 추출 */
+				if (list.get(i).dependency == 0)
+				{
+					ordered[offset++] = list.get(i).getName();
+					
+					/** 2. 위에서 추출한 node 의 child 들의 dependency-- */
+					List<Node> childList = node.getChild();
+					for (Node child : childList)
+						child.dependency--;
+				}
+			}
+		}
+		
+		
+		
+		
+	}
+	
+	
+	/**
+	 * 	1. 그래프 생성
+	 * 	2. 그래프를 통해 ordered projects 를 추출.
+	 * 		2.1 dependency 가 없는 project 부터 추출
+	 * 		2.2 해당 project 를 참조하고 있는 project 의 dependency--
+	 * 		2.3 2.1~2.2 반복
+	 * 	3. 순환을 어떻게 감지할지 고민 
+	 */
 	public static void main(String[] args)
 	{
 		String projects[] = {"a", "b", "c", "d", "e", "f"};
 		String dependencies[][] = 
 			{{"a", "d"}, {"f", "b"}, {"b", "d"}, {"f", "a"}, {"d", "c"}};
 		Graph graph = buildGraph(projects, dependencies);
-		List<Node> nodeList = graph.getNodes();
-		for (Node node : nodeList)
-		{
-			System.out.print("node.getName : " + node.getName());
-			System.out.print("\t child list : " + node.getChild());
-			System.out.println();
-		}
+		String ordered[] = extractOrderedProjects(graph);
 	}
 }

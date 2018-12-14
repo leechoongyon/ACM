@@ -1,29 +1,54 @@
 package algorithm;
 
-public class DFS {
-	static int n = 8;
+import java.util.Scanner;
 
-	public static void main(String[] args) {
-		int map[][] = new int[30][30];
-		boolean visit[] = new boolean[30];
+/**
+ * 
+ * @author lee
 
-		DFS dfs = new DFS();
-		dfs.init(map);
-		DFS(1,map,visit);
+6
+1 2
+2 3
+2 4
+2 5
+3 1
+5 4
+
+ */
+public class DFS
+{
+	private static boolean visited[];
+	private static int arr[][];
+	
+	public static void main(String[] args)
+	{
+		Scanner scan = new Scanner(System.in);
+		
+		int n = scan.nextInt();
+		
+		arr = new int[n + 1][n + 1];
+		visited = new boolean[n+1];
+		for (int i = 0 ; i < n ; i++)
+		{
+			int l = scan.nextInt();
+			int r = scan.nextInt();
+			
+			arr[l][r] = arr[r][l] = 1;
+		}
+		dfs(1);
 	}
-
-	public void init(int map[][]) {
-		map[1][2] = 1; map[1][3] = 1; map[2][4] = 1; map[2][5] = 1; map[4][8] = 1; map[5][8] = 1; map[3][6] = 1;
-		map[3][7] = 1; map[6][8] = 1; map[7][8] = 1; map[2][1] = 1; map[3][1] = 1; map[4][2] = 1; map[5][2] = 1;
-		map[8][4] = 1; map[8][5] = 1; map[6][3] = 1; map[7][3] = 1; map[8][6] = 1; map[8][7] = 1;
-	}
-
-	public static void DFS(int v, int map[][], boolean visit[]) {
-		visit[v] = true;
-		for(int i = 1; i <= n ; i++) {
-			if(map[v][i] == 1 && !visit[i]) {
-				System.out.println(v + "에서 " + i + "로 이동");
-				DFS(i, map, visit);
+	
+	private static void dfs(int start)
+	{
+		visited[start] = true;
+		
+		for (int i = 1 ; i < arr.length ; i++)
+		{
+			if (visited[i] == false && arr[start][i] == 1)
+			{
+				visited[i] = true;
+				System.out.println(start + " --> " + i);
+				dfs(i);
 			}
 		}
 	}

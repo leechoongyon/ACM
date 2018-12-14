@@ -18,7 +18,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
  */
 
-public class BFSExample
+public class BFS
 {
 	private static boolean visited[];
 	private static int arr[][];
