@@ -1,4 +1,4 @@
-package codingInterview.treeAndGraph;
+package codingInterview.TreesAndGraphs;
 
 import java.util.HashMap;
 import java.util.LinkedList;

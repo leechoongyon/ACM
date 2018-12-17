@@ -1,4 +1,4 @@
-package codingInterview.treeAndGraph;
+package codingInterview.TreesAndGraphs;
 
 /**
  *

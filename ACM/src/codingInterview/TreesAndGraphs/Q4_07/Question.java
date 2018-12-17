@@ -1,4 +1,4 @@
-package codingInterview.treeAndGraph;
+package codingInterview.TreesAndGraphs.Q4_07;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ import java.util.Map;
  *	
  */
 
-public class Question4g
+public class Question
 {
 	public static class Node
 	{
@@ -56,7 +56,9 @@ public class Question4g
 	
 	public static class Graph
 	{
+		/** nodeList 가 graph 의 정점 list */
 		private List<Node> nodeList = new ArrayList<Node>();
+		/** map 을 사용하는건 addDependency 에서 값을 찾기 위함. */
 		private Map<String, Node> map = new HashMap<String, Node>();
 		
 		public void addNode(String nodeName)
@@ -107,31 +109,34 @@ public class Question4g
 	
 	public static String[] extractOrderedProjects(Graph graph)
 	{
-		List<Node> list = null;
+		/** 초기 사례 */
+		List<Node> list = graph.getNodes();
+		if (list == null || list.size() == 0) return null;
 		String ordered[] = new String[list.size()];
 		int offset = 0;
-		
-		while (true)
+		while (list.size() != 0)
 		{
+			boolean isInfiniteLoop = true;
 			list = graph.getNodes();
 			for (int i = 0 ; i < list.size() ; i++)
 			{
+				Node node = list.get(i);
 				/** 1. dependency 가 없는 node 부터 추출 */
-				if (list.get(i).dependency == 0)
+				if (node.dependency == 0)
 				{
-					ordered[offset++] = list.get(i).getName();
+					ordered[offset++] = node.getName();
 					
 					/** 2. 위에서 추출한 node 의 child 들의 dependency-- */
 					List<Node> childList = node.getChild();
 					for (Node child : childList)
 						child.dependency--;
+					list.remove(i);
+					isInfiniteLoop = false;
 				}
 			}
+			if (isInfiniteLoop) return null;
 		}
-		
-		
-		
-		
+		return ordered;
 	}
 	
 	
@@ -150,5 +155,11 @@ public class Question4g
 			{{"a", "d"}, {"f", "b"}, {"b", "d"}, {"f", "a"}, {"d", "c"}};
 		Graph graph = buildGraph(projects, dependencies);
 		String ordered[] = extractOrderedProjects(graph);
+		if (ordered == null) System.out.println(ordered);
+		else
+		{
+			for (String project : ordered)
+				System.out.print(project + " ");
+		}
 	}
 }
