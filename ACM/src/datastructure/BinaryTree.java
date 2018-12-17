@@ -2,7 +2,7 @@ package datastructure;
 
 public class BinaryTree<T>
 {
-	public BinaryTree root;
+	public BinaryTree<T> root;
 	
 	public BinaryTree()
 	{
@@ -15,6 +15,10 @@ public class BinaryTree<T>
 		newNode.item = item;
 		newNode.left = left;
 		newNode.right = right;
+		
+		if (left != null) left.parent = newNode;
+		if (right != null) right.parent = newNode;
+		
 		return newNode;
 	}
 	
@@ -29,6 +33,7 @@ public class BinaryTree<T>
 		public T item;
 		public Node<T> left;
 		public Node<T> right;
+		public Node<T> parent;
 
 		@Override
 		public String toString()
