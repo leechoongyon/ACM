@@ -1,4 +1,4 @@
-package codingInterview.TreesAndGraphs.Q4_Q10;
+package codingInterview.TreesAndGraphs.Q4_10;
 
 import datastructure.BinaryTree;
 import datastructure.BinaryTree.Node;
