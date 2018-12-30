@@ -3,7 +3,7 @@ package codingInterview.recursiveAndDP.Q8_02;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Question
+public class Improved
 {
 	private static int ROW = 5;
 	private static int COL = 5;
@@ -22,8 +22,17 @@ public class Question
 	 *	   O(r-1, c), O(r, c-1) 위치에 있어야 한다.
 	 *	2. 위와 같이 하면 O(r,c) 에 도달하는 경로를 구하기 위해 이전 위치들의 값을 알아야 한다.
 	 *	
-	 *	* 금지 영역은 -1 , 통과해도 되는 지점은 0이라 가정 
+	 *	* 금지 영역은 -1 , 통과해도 되는 지점은 0이라 가정
+	 *
+	 * 	* 메모라이제이션 사용
+	 * 	1. r,c 위치에 해당하는 모든 경로를 cache 에 담고 있어야 함. 
+	 * 		1,1 위치에 1,2 --> 1,3 --> 1,4 --> 2,1 --> ... 
+	 * 				   1,2 --> 1,3 --> 2.2 --> ...
+	 * 
+	 * 		key 가 int r,c 이고, 뒤에 경로는 List 로 담아야할 것 같음.
+	 * 		Object[][] obj = list 의 주소 값.
 	 */
+	
 	public static void goAround(int r, int c)
 	{
 		/** validate */
