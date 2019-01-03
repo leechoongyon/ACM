@@ -31,6 +31,7 @@ public class Question
 		 * 		1.3 그러하기에 side2 는 별도로 구해야 함.
 		 */
 		
+		if (cache[smaller] != Integer.MIN_VALUE) return cache[smaller];
 		
 		/** 기저 사례 */
 		if (smaller == 0) return 0;
@@ -43,7 +44,7 @@ public class Question
 		if (smaller % 2 == 1)
 			side2 = multiplyInternal(smaller - s, bigger);
 		
-		return side1 + side2;
+		return (cache[smaller] = side1 + side2);
 		
 	}
 }
