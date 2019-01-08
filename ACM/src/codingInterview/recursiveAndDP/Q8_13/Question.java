@@ -31,10 +31,15 @@ public class Question
 	public static int getHeightestBox(Box boxs[], int index)
 	{
 		/**
-		 * 	이런 문제를 풀기 전, 반드시 점화식을 그려보고 수행.
+		 * 	이런 문제를 풀기 전, 반드시 점화식을 그려보고 수행. 또는 실제로 작은 케이스를 만들어 풀어보기.
 		 * 	이 문제는 재귀로 푼 문제이며, 끝에서부터 위로 올라오는 down-top 방식임.
 		 * 	끝에서 부터 해당 index 의 maxHeight 를 위로 올려보내며, maxHeight 를 받아 
-		 * 	현재 boxs[i].h 와 계산해서 위로 올려보내는거임.   
+		 * 	현재 boxs[i].h 와 계산해서 위로 올려보내는거임. 또한, 계산 과정에 각 높이에서의
+		 * 	maxHeight 를 구하는게 중복이니 이를 memorization 을 통해 품.
+		 *  예를 들면, 아래 문제를 보면 box3 과 box4 가 공통임. 그러하기에 이를 index 를 통해 cache 사용 
+		 *  	box1 --> box3 --> box4
+		 *  	box2 --> box3 --> box4
+		 *     
 		 *  
 		 * 	1. 높이를 정렬.
 		 * 	2. for (0 ~ n) 순회하면서 밑에서부터 높은 것을 쌓아나감.
