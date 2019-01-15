@@ -1,26 +1,24 @@
 package algorithm;
 
 import java.util.Queue;
-import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class RadixSort
 {
+	private static Queue<Integer> queue[] = new LinkedBlockingQueue[]
+			{
+				new LinkedBlockingQueue<Integer>(), new LinkedBlockingQueue<Integer>(), new LinkedBlockingQueue<Integer>(),
+				new LinkedBlockingQueue<Integer>(), new LinkedBlockingQueue<Integer>(), new LinkedBlockingQueue<Integer>(),
+				new LinkedBlockingQueue<Integer>(), new LinkedBlockingQueue<Integer>(), new LinkedBlockingQueue<Integer>(), 
+				new LinkedBlockingQueue<Integer>()
+			};
 	public static void main(String [] args)
 	{
-		Queue<Integer> bucket[] = new SynchronousQueue[9];
-		bucket[0] = new SynchronousQueue<Integer>();
-		bucket[1] = new SynchronousQueue<Integer>();
-		bucket[2] = new SynchronousQueue<Integer>();
-		bucket[3] = new SynchronousQueue<Integer>();
-		bucket[4] = new SynchronousQueue<Integer>();
-		bucket[5] = new SynchronousQueue<Integer>();
-		bucket[6] = new SynchronousQueue<Integer>();
-		bucket[7] = new SynchronousQueue<Integer>();
-		bucket[8] = new SynchronousQueue<Integer>();
 		
-		int arr[] = new int[] {15,27,64,25,50,17,39,28};
-		
-		solve(bucket, arr, 2);
+		int arr[] = new int[] {15,27,64,255,256,505,17,39,28};
+		int res[] = sort(arr, 3);
+		for (int i : res)
+			System.out.print(i + " ");
 	}
 	
 	
@@ -31,14 +29,39 @@ public class RadixSort
 	 * 	4. 버킷에 집어넣은 것을 0~9부터 순서대로 빼서 배열에 집어넣음.
 	 * 	5. 십의 자리를 비교. 위에 반복.
 	 * 	6. 배열 출력
-	 */	
-	public static void solve(Queue<Integer> bucket[], int arr[], int maxDigit)
+	 */
+	public static int[] sort(int arr[], int maxDigit)
 	{
-		int temp[] = new int[arr.length];
-		int digit = 0;
+		int res[] = arr;
+		for (int i = 0 ; i < maxDigit ; i++)
+		{
+			res = internalSort(res, i);
+//			print(res);
+		}
+		
+		return res;
+	}
+	
+	public static int[] internalSort(int arr[], int digit)
+	{
+		int k = 0;
+		int pos = 0;
+		int res[] = new int[arr.length];
+		
 		for (int i = 0 ; i < arr.length ; i++)
 		{
-			arr[i] 
+			if (digit == 0)
+				k = arr[i] % 10;
+			else
+				k = (int) (arr[i] / Math.pow(10, digit)) % 10;
+			queue[k].add(arr[i]);
 		}
+		
+		for (int i = 0 ; i < queue.length ; i++)
+		{
+			while (!queue[i].isEmpty())
+				res[pos++] = queue[i].poll();
+		}
+		return res;
 	}
 }
