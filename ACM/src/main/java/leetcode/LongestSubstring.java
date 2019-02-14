@@ -3,8 +3,8 @@ package leetcode;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.eclipsesource.json.JsonArray;
 
@@ -42,30 +42,49 @@ public class LongestSubstring
 			 * 	2. 시작 지점부터 순회하며, 문자를 버퍼에 집어넣음.
 			 * 	3. 같은 문자가 버퍼에 들어있다면 멈춘 후, maxLLongestLength 와 값 비교
 			 * 	4. 시간복잡도 O(n제곱)
-			 * 
-			 * 	Sol2. 시작점 각각에 대해서 longestLength 를 관리
-			 * 	1. 순회하며 각 자릿수에 대해 버퍼에 집어넣음.
-			 * 	2. 이 버퍼는 각 자릿수의 알파벳과 logestLength 를 가지고 있으며
-			 * 	3. 같은 문자가 들어왔을 때, 멈추는 기능도 있어야 함.
-			 * 	4. 즉, 누적적으로 쌓으며 진행
-			 * 	5. 시간복잡도 O(n)
+			 *
+			 * 	Sol2. Map 활용
+			 * 	1. 순회하며 맵에 하나씩 집어넣기.
+			 * 	2. Map 의 key : 문자, value 는 숫자 (문자의 위치)
+			 * 	3. 순회하면서 Map 에 들어있나 확인. 존재한다면, key 를 가지고 뺸 후에 index 비교.
 			 */
-			
-			List<CharacterStrcture> list = new ArrayList<>();
-			for (char c : s.toCharArray())
+			int max = 0;
+			int length = 0;
+			int diff = 0;
+			int abandon = -1;
+			String buffer;
+			/** 문자열 길이 0 일 때 */
+			if (s.length() == 0) return 0;
+			else if (s.length() == 1) return 1;
+			else 
 			{
-				if (list.)
-				list.add(new Character)
+				Map<Character, Integer> map = new HashMap<>();
+				for (int i = 0 ; i < s.length() ; i++)
+				{
+					if (map.containsKey(s.charAt(i)) && map.get(s.charAt(i)) > abandon)
+					{
+						diff = i - map.get(s.charAt(i));
+						max = Math.max(max, length);
+						if (diff == 1) 
+						{
+							map.clear();
+							length = 1;
+						}
+						else 
+						{
+							length = diff;
+							abandon = map.get(s.charAt(i));
+						}
+						map.put(s.charAt(i), i);
+					}
+					else
+					{
+						map.put(s.charAt(i), i);
+						length++;
+					}
+				}
+				return Math.max(length, max);
 			}
-			
-			return 0;
 		}
 	}
-	
-	public static class CharacterStrcture
-	{
-		int length;
-		char c;
-	}
 }
-
