@@ -4,8 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import com.eclipsesource.json.JsonArray;
+
 public class LongestSubstring
 {
+	@SuppressWarnings("deprecation")
 	public static String stringToString(String input)
 	{
 		return JsonArray.readFrom("[" + input + "]").get(0).asString();
@@ -32,6 +35,6 @@ class Solution
 {
     public int lengthOfLongestSubstring(String s) 
     {
-        
+        return 0;
     }
 }

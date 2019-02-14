@@ -21,6 +21,10 @@ dependencies {
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:21.0'
 
+	// https://mvnrepository.com/artifact/com.eclipsesource.minimal-json/minimal-json
+	compile group: 'com.eclipsesource.minimal-json', name: 'minimal-json', version: '0.9.4'
+
+
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
 }
