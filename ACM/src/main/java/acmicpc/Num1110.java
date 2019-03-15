@@ -35,6 +35,18 @@ public class Num1110
 		 * 	Sol2. 규칙을 찾아야 함.
 		 */
 		
-		return 0;
+		int cycle = 0;
+		int newNum = n;
+		int a,b;
+		do
+		{
+			a = newNum / 10;
+			b = newNum % 10;
+			if (a + b >= 10) newNum = b * 10 + ((a + b) % 10);
+			else newNum = b * 10 + (a + b);
+			cycle++;
+		}
+		while (newNum != n);
+		return cycle;
 	}
 }
