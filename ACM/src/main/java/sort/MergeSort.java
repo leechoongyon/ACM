@@ -4,15 +4,15 @@ public class MergeSort
 {
 	public static int [] sorted = new int [30];
 
-	public static void mergeSort(int [] arr, int m, int n)
+	public static void mergeSort(int[] arr, int start, int end)
 	{
 		int middle;
-		if (m < n)
+		if (start < end)
 		{
-			middle = ( m + n ) / 2;
-			mergeSort(arr, m, middle);
-			mergeSort(arr, middle + 1, n);
-			merge(arr, m, middle, n);
+			middle = ( start + end ) / 2;
+			mergeSort(arr, start, middle);
+			mergeSort(arr, middle + 1, end);
+			merge(arr, start, middle, end);
 		}
 	}
 
