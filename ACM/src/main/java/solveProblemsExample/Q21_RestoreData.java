@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import algorithm.BubbleSort;
+import sort.BubbleSort;
 
 /*desc : 글자의 갯수를 세서 HashMap을 통해 해당 값의 글자수를 비교해서 최소의 필요 
 글자수를 출력해냄.

@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import algorithm.BubbleSort;
+import sort.BubbleSort;
 
 public class FindAnagram
 {
