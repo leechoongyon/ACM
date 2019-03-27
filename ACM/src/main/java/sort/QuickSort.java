@@ -26,6 +26,12 @@ public class QuickSort
 		while (leftPos <= rightPos);
 
 		// 왼쪽 부분집합 정렬
+		/** 
+		 * 	이게 언뜻 보면 rightPos 가 아니라 leftPos 가 와야하는데,
+		 *	rightPos 가 온 이유는 위에 로직대로 타고 흐르면 leftPos 가 rightPos 를 넘어서고,
+		 *	rightPos 는 leftPos 보다 작아짐. 즉, pivot 을 기준으로 서로 뒤바뀜.
+		 *	이건 그림 한 번 그려보면 쉽게 이해 감
+		 */
 		if (left < rightPos)
 			sort(arr, left, rightPos);
 		// 오른쪽 부분집합 정렬
