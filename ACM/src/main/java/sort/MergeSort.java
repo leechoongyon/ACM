@@ -7,6 +7,11 @@ public class MergeSort
 	public static void mergeSort(int[] arr, int start, int end)
 	{
 		int middle;
+		/**
+		 * 	start < end 가 종료조건
+		 * 	일단 나눈다. 그리고 합친다. (divide and conquer)
+		 * 	아래와 같이 짜면, start, end 를 기준으로 합침.
+		 */
 		if (start < end)
 		{
 			middle = ( start + end ) / 2;
@@ -16,15 +21,16 @@ public class MergeSort
 		}
 	}
 
-	public static void merge(int [] arr, int m, int middle, int n)
+	public static void merge(int [] arr, int start, int middle, int end)
 	{
 		int i, j, k, t;
 
-		i = m;
+		i = start;
 		j = middle + 1;
-		k = m;
+		k = start;
 
-		while (i <= middle && j <= n)
+		/** 왼쪽과 오른쪽으에 있는 부분들을 비교해서 sorted 에 넣어 줌. */
+		while (i <= middle && j <= end)
 		{
 			if (arr[i] <= arr[j])
 				sorted[k] = arr[i++];
@@ -33,9 +39,10 @@ public class MergeSort
 			k++;
 		}
 
+		/** 남아 있는 것을 처리 */
 		if (i > middle)
 		{
-			for (t = j; t <= n; t++, k++)
+			for (t = j; t <= end; t++, k++)
 				sorted[k] = arr[t];
 		}
 		else
@@ -44,7 +51,8 @@ public class MergeSort
 				sorted[k] = arr[t];
 		}
 
-		for (t = m; t <= n; t++)
+		/** sorted 에 있는 것을 arr(원본) 에 반영 */
+		for (t = start; t <= end; t++)
 			arr[t] = sorted[t];
 	}
 
