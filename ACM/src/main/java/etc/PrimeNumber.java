@@ -22,9 +22,10 @@ public class PrimeNumber {
 	
 	/** 
 	 * 에라토네스의 접근
-	 * 주어진 num 을 특정 수로 나누면 몫을 구할 수 있다.
-	 * 몫은 root num 보다 크거나 작거나 같다. 그렇기에 소수라면
-	 * root num 이하의 작은 수들에 의해 나누어지면 안된다.
+	 * num / a = b 라 가정
+	 * a 와 b 중에 하나는 root num 보다 크거나 작거나 같아야 한다.
+	 * 그렇기에 소수라면 root num 이하의 작은 수들에 의해 나누어지면
+	 * 안된다.
 	 * time complexity : O(root n)
 	 **/
 	public static boolean isPrime2(int n) {
