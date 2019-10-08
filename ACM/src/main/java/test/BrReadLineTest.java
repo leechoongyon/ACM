@@ -9,12 +9,9 @@ public class BrReadLineTest {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = null;
-        
         String s = br.readLine();
         String ss = br.readLine();
-        
         System.out.println("s : " + s);
         System.out.println("ss : " + ss);
-        
 	}
 }
