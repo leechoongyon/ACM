@@ -4,17 +4,18 @@ public class BinarySearch
 {
 	public static void main(String[] args)
 	{
-		int t = 1;
+		int t = 9;
 	
-		int x[] = {0,1,2,3,4,5,6,7,8,9};
-
+//		int x[] = {0,1,2,3,4,5,6,7,8,9};
+		int x[] = {1,2,5,9,9};
+		
 		int l = 0;
 		int u = x.length - 1;
 
 		int p;
 
 		p = loopBinarySearch(x, l, u, t);
-		p = recursiveBinarySearch(x, l, u, t);
+//		p = recursiveBinarySearch(x, l, u, t);
 
 		System.out.println("원하는 인덱스 : " + p);
 	}
@@ -50,22 +51,22 @@ public class BinarySearch
 			System.out.println("답 : " + x[m] + " , " + x[m+1]);
 	}	
 
-	public static int loopBinarySearch(int x[], int l, int u, int t)
+	public static int loopBinarySearch(int x[], int l, int r, int target)
 	{
 		int m;
 	
-		while( l <= u)
+		while( l <= r)
 		{
-			m = ( l + u ) / 2;
+			m = ( l + r ) / 2;
 
-			System.out.println(l + ", " + u + ", " + m);
+			System.out.println(l + ", " + r + ", " + m);
 	
-			if( x[m] == t)
+			if( x[m] == target)
 			{
 				return m;
 			}
-			else if( x[m] > t)
-				u = m - 1;
+			else if( x[m] > target)
+				r = m - 1;
 			else
 				l = m + 1;
 		}
