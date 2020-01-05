@@ -1,2 +1,9 @@
 /bin/
 /.gradle/
+.idea/*
+.idea
+/.idea/*
+*/.idea/*
+/build
+/build/*
+*/build/*
