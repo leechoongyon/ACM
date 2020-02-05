@@ -19,10 +19,6 @@ import java.io.InputStreamReader;
 
 public class LongestPalindromicSubstring {
 
-    private static char[] c1;
-    private static char[] c2;
-    private static int[][] cache;
-
     public static void main(String[] args) throws Exception {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         String s = in.readLine();
@@ -30,43 +26,32 @@ public class LongestPalindromicSubstring {
     }
 
     /**
+     * 1. dp 이용
+     *  a. 양옆을 비교해 나감.
+     *  b. c[i] == c[j] && i-j <= 2 라는 것은 양 옆의 차가 2이하라는 것이니 palindrome 이다.
+     *  c. c[i] == c[j] && i-j <= 2 가 아니면, 안 쪽에 있는 문자열을 또 다시 비교해야 함.
+     *  d. 그 비교하는 부분을 dp 를 이용하는 것.
      *
-     * 1. brute-force
-     *  - for 문 돌림.
-     *  - 0~n 까지 i 와 n 을 차츰 비교해 나감.
-     *  - 이게 O(n제곱)
-     *
-     * 2. LCS 이용
-     *  1) 주어진 s 를 뒤집어도 LCS 는 같아야 함.
-     *  2)
-     *
+     *  시간복잡도 O(n제곱) / 공간복잡도 O(n제곱)
      *
      * @param s
      * @return
      */
+
     public String longestPalindrome(String s) {
-        String reverse = reverse(s);
+        boolean[][] cache = new boolean[s.length()][s.length()];
+        char[] c = s.toCharArray();
+        int max = 0;
+        String result = "";
         for (int i = 0 ; i < s.length() ; i++) {
-            for (int j = 0 ; j < reverse.length() ; j++) {
-                lcs(i, j);
+            for (int j = i ; j >= 0 ; j--) {
+                cache[i][j] = (c[i] == c[j] && (i - j <= 2 || cache[i-1][j+1]));
+                if (cache[i][j] && i - j >= max) {
+                    max = i - j;
+                    result = s.substring(j, i+1);
+                }
             }
         }
-        return "";
-    }
-
-    public String reverse(String s) {
-        StringBuilder sb = new StringBuilder(s);
-        return sb.reverse().toString();
-    }
-
-    public String lcs(int i, int j) {
-        if (i < 0 || j < 0) {
-            return "";
-        }
-
-        if (c1[i] == c2[j]) {{
-
-        }}
-        return "";
+        return result;
     }
 }
