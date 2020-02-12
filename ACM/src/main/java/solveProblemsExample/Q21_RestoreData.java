@@ -116,8 +116,9 @@ public class Q21_RestoreData {
 	}
 
 	public HashMap<Character, Integer> countCharacter(String s) {
-		String sortedStr = BubbleSort.BubbleSorting(s, s.length());
-		return PatternCount(sortedStr);
+		/*String sortedStr = BubbleSort.BubbleSorting(s, s.length());
+		return PatternCount(sortedStr);*/
+		return null;
 	}		
 
 	

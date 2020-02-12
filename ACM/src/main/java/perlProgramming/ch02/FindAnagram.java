@@ -95,9 +95,10 @@ public class FindAnagram
 	
 	public String MarkAnagram(String s)
 	{
-		String sortedStr = BubbleSort.BubbleSorting(s, s.length());
-		String wordCount = PatternCount.PatternCount(sortedStr);
-		return s + "\t" + wordCount;
+//		String sortedStr = BubbleSort.BubbleSorting(s, s.length());
+//		String wordCount = PatternCount.PatternCount(sortedStr);
+//		return s + "\t" + wordCount;
+		return null;
 	}
 	
 }
